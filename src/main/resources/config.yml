@@ -1,0 +1,10 @@
+# FeatherSpawner Config
+
+silk-touch:
+  tools:
+    - WOODEN_PICKAXE
+    - STONE_PICKAXE
+    - IRON_PICKAXE
+    - GOLD_PICKAXE
+    - DIAMOND_PICKAXE
+    - NETHERITE_PICKAXE
