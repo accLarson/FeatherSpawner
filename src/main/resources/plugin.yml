@@ -4,3 +4,6 @@ main: net.zerek.featherspawners.FeatherSpawners
 api-version: 1.19
 authors: [ Zerek ]
 description: Allows for picking up spawners with silktouch and changing spawners with commands
+commands:
+  spawner:
+    description: Used for setting a spawner type as well as various admin spawner commands.

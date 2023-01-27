@@ -1,15 +1,18 @@
 package net.zerek.featherspawners.listeners;
 
 import net.zerek.featherspawners.FeatherSpawners;
+import net.zerek.featherspawners.managers.ConfigManager;
+import org.bukkit.GameMode;
+import org.bukkit.Location;
 import org.bukkit.Material;
-import org.bukkit.block.Block;
-import org.bukkit.block.BlockState;
+import org.bukkit.block.CreatureSpawner;
 import org.bukkit.enchantments.Enchantment;
+import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.inventory.ItemStack;
-import org.bukkit.inventory.meta.ItemMeta;
+
 
 public class BlockBreakListener implements Listener {
 
@@ -25,23 +28,32 @@ public class BlockBreakListener implements Listener {
         // Check if the block broken is a spawner.
         if (event.getBlock().getType() == Material.SPAWNER) {
 
-            Block block = event.getBlock();
+            Player player = event.getPlayer();
 
-            ItemStack tool = event.getPlayer().getInventory().getItemInMainHand();
+            // Check if player is in survival mode and has permission to mine spawners.
+            if (player.getGameMode() == GameMode.SURVIVAL && player.hasPermission("feather.spawners.silktouch")) {
 
-            // Check if the tool being used is a pickaxe.
-            if (plugin.getConfigManager().getSilkTouchTools().contains(tool.getType())) {
+                ItemStack tool = player.getInventory().getItemInMainHand();
 
-                // Check if the approved tool has silk touch enchantment
-                if (tool.getEnchantments().containsKey(Enchantment.SILK_TOUCH)) {
+                // Check if the tool being used is a pickaxe.
+                if (plugin.getConfigManager().getSilkTouchTools().contains(tool.getType())) {
 
-                    ItemStack itemStack = new ItemStack(Material.SPAWNER,1);
+                    // Check if the approved tool has silk touch enchantment
+                    if (tool.getEnchantments().containsKey(Enchantment.SILK_TOUCH)) {
 
-                    BlockState blockState = block.getState();
+                        CreatureSpawner spawner = (CreatureSpawner) event.getBlock().getBlockData();
+                        String spawnerEntity = String.valueOf(spawner.getSpawnedType());
 
-                    itemStack.setItemMeta((ItemMeta) blockState);
+                        //check if spawner being broken is stored in spawnersMap for dropping.
+                        if (plugin.getSpawnerFileManager().isSpawnerSaved(spawnerEntity)) {
 
-                    block.getDrops().add(itemStack);
+                            ItemStack itemStack = plugin.getSpawnerFileManager().getSpawner(spawnerEntity);
+                            Location loc = spawner.getLocation();
+                            event.setExpToDrop(0);
+                            loc.getWorld().dropItem(loc, itemStack);
+
+                        }
+                    }
                 }
             }
         }
