@@ -25,36 +25,38 @@ public class BlockBreakListener implements Listener {
     public void onBlockBreak(BlockBreakEvent event){
 
         // Check if the block broken is a spawner.
-        if (event.getBlock().getType() == Material.SPAWNER) {
+        if (event.getBlock().getType() != Material.SPAWNER) return;
+        Player player = event.getPlayer();
 
-            Player player = event.getPlayer();
+        // Check if player is in survival mode.
+        if (player.getGameMode() != GameMode.SURVIVAL) return;
 
-            // Check if player is in survival mode and has permission to mine spawners.
-            if (player.getGameMode() == GameMode.SURVIVAL && player.hasPermission("feather.spawners.silktouch")) {
+        // Check if player has permission to mine spawners with silk touch enchantment.
+        if (!player.hasPermission("feather.spawners.silktouch")) return;
 
-                ItemStack tool = player.getInventory().getItemInMainHand();
+        ItemStack tool = player.getInventory().getItemInMainHand();
 
-                // Check if the tool being used is a pickaxe.
-                if (plugin.getConfigManager().getSilkTouchTools().contains(tool.getType())) {
+        // Check if the tool being used is a pickaxe.
+        if (!plugin.getConfigManager().getSilkTouchTools().contains(tool.getType())) return;
 
-                    // Check if the approved tool has silk touch enchantment
-                    if (tool.getEnchantments().containsKey(Enchantment.SILK_TOUCH)) {
+        // Check if the approved tool has silk touch enchantment
+        if (!tool.getEnchantments().containsKey(Enchantment.SILK_TOUCH)) return;
 
-                        CreatureSpawner spawner = (CreatureSpawner) event.getBlock().getState();
-                        String spawnerEntity = String.valueOf(spawner.getSpawnedType());
+        CreatureSpawner spawner = (CreatureSpawner) event.getBlock().getState();
 
-                        //check if spawner being broken is stored in spawnersMap for dropping.
-                        if (plugin.getSpawnerFileManager().isSpawnerSaved(spawnerEntity)) {
+        String spawnerEntity = String.valueOf(spawner.getSpawnedType());
 
-                            ItemStack itemStack = plugin.getSpawnerFileManager().getSpawner(spawnerEntity);
-                            Location loc = spawner.getLocation();
-                            event.setExpToDrop(0);
-                            loc.getWorld().dropItem(loc, itemStack);
+        //check if spawner being broken is stored in spawnersMap for dropping.
+        if (!plugin.getSpawnerFileManager().isSpawnerSaved(spawnerEntity)) return;
 
-                        }
-                    }
-                }
-            }
-        }
+        // Checks passed ----------------------------------------------------------------
+
+
+        ItemStack itemStack = plugin.getSpawnerFileManager().getSpawner(spawnerEntity);
+        event.setExpToDrop(0);
+        spawner.getLocation().getWorld().dropItem(spawner.getLocation(), itemStack);
+
+
+
     }
 }
