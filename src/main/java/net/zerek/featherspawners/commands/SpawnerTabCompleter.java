@@ -3,10 +3,8 @@ package net.zerek.featherspawners.commands;
 import net.zerek.featherspawners.FeatherSpawners;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
-import org.bukkit.command.ConsoleCommandSender;
 import org.bukkit.command.TabCompleter;
 import org.bukkit.entity.EntityType;
-import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -19,62 +17,70 @@ import java.util.stream.Collectors;
 public class SpawnerTabCompleter implements TabCompleter {
 
     private final FeatherSpawners plugin;
-    private final List<String> entityTypes = Arrays.stream(EntityType.values()).map(Enum::toString).collect(Collectors.toList());
+    private final List<String> allEntityTypes = Arrays.stream(EntityType.values()).map(Enum::toString).collect(Collectors.toList());
+    private final List<String> approvedEntityTypes = new ArrayList<>();
 
 
     public SpawnerTabCompleter(FeatherSpawners plugin) {
         this.plugin = plugin;
+        plugin.getConfigManager().getSettableEntityTypes().forEach(entityType -> approvedEntityTypes.add(entityType.name()));
     }
 
     @Override
     public @Nullable List<String> onTabComplete(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String[] args) {
         List<String> options = new ArrayList<>();
 
-        if (sender instanceof Player && sender.isOp()) {
-            if (sender.hasPermission("feather.spawners.designate") || sender instanceof ConsoleCommandSender) options.add(0, "designate");
-            if (sender.hasPermission("feather.spawners.give") || sender instanceof ConsoleCommandSender) options.add(0, "give");
-            if (sender.hasPermission("feather.spawners.set") || sender instanceof ConsoleCommandSender) options.add(0, "set");
+        if (sender.hasPermission("feather.spawners.designate")) options.add(0, "designate");
 
-            if (args.length == 1) {
-                List<String> match = new ArrayList<>();
-                for (String option : options) {
-                    if (option.toLowerCase().startsWith(args[0].toLowerCase())) match.add(option);
-                }
-                return match;
-            }
+        if (sender.hasPermission("feather.spawners.give")) options.add(0, "give");
 
-            else if (args.length == 2 && args[0].equals("designate")) {
+        if (sender.hasPermission("feather.spawners.set")) options.add(0, "set");
 
-                List<String> match = new ArrayList<>();
+        if (args.length == 1) {
 
-                for (String entityType : entityTypes) if (entityType.toUpperCase().startsWith(args[1].toUpperCase())) match.add(entityType);
+            List<String> match = new ArrayList<>();
 
-                return match;
-            }
+            for (String option : options) if (option.toLowerCase().startsWith(args[0].toLowerCase())) match.add(option);
 
-            else if (args.length == 2 && args[0].equals("set")) {
-
-                List<String> match = new ArrayList<>();
-
-                for (String entityType : plugin.getSpawnerFileManager().getSpawnerList()) if (entityType.toUpperCase().startsWith(args[1].toUpperCase())) match.add(entityType);
-
-                return match;
-            }
-
-            else if (args.length == 2 && args[0].equals("give")) return null;
-
-            else if (args.length == 3 && args[0].equals("give")) {
-
-                List<String> match = new ArrayList<>();
-
-                for (String entityType : plugin.getSpawnerFileManager().getSpawnerList()) if (entityType.toUpperCase().startsWith(args[1].toUpperCase())) match.add(entityType);
-
-                return match;
-            }
-
-
-            else return new ArrayList<>();
+            return match;
         }
-        return options;
+
+        List<String> match = new ArrayList<>();
+
+        switch (args[0]) {
+
+            case "designate":
+
+                if (args.length == 2 && sender.hasPermission("feather.spawners.designate")) {
+
+                    for (String entityType : allEntityTypes) if (entityType.toUpperCase().startsWith(args[1].toUpperCase())) match.add(entityType);
+
+                    return match;
+                }
+
+            case "set":
+
+                if (args.length == 2 && sender.hasPermission("feather.spawners.set")) {
+
+                    for (String entityType : approvedEntityTypes) if (entityType.toUpperCase().startsWith(args[1].toUpperCase())) match.add(entityType);
+
+                    return match;
+                }
+
+            case "give":
+
+                if (args.length == 2 && sender.hasPermission("feather.spawners.give")) {
+
+                    return null;
+                }
+
+                if (args.length == 3 && sender.hasPermission("feather.spawners.give")) {
+
+                    for (String entityType : plugin.getSpawnerFileManager().getSpawnerOnFileList()) if (entityType.toUpperCase().startsWith(args[2].toUpperCase())) match.add(entityType);
+
+                    return match;
+                }
+        }
+        return new ArrayList<>();
     }
 }

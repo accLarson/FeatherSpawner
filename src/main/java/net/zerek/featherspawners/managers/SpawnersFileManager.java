@@ -61,7 +61,7 @@ public class SpawnersFileManager {
         return spawnersMap.get(entityType);
     }
 
-    public Set<String> getSpawnerList() {
+    public Set<String> getSpawnerOnFileList() {
 
         return spawnersMap.keySet();
     }
