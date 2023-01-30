@@ -1,6 +1,7 @@
 package net.zerek.featherspawners;
 
 import net.zerek.featherspawners.commands.SpawnerCommand;
+import net.zerek.featherspawners.commands.SpawnerTabCompleter;
 import net.zerek.featherspawners.listeners.BlockBreakListener;
 import net.zerek.featherspawners.managers.ConfigManager;
 import net.zerek.featherspawners.managers.MessagesFileManager;
@@ -18,12 +19,15 @@ public final class FeatherSpawners extends JavaPlugin {
 
         this.saveDefaultConfig();
         this.saveResource("spawners.yml",false);
+        this.saveResource("messages.yml",false);
 
         configManager = new ConfigManager(this);
         spawnerFileManager = new SpawnersFileManager(this);
+        messagesFileManager = new MessagesFileManager(this);
 
         this.getServer().getPluginManager().registerEvents(new BlockBreakListener(this), this);
         this.getCommand("spawner").setExecutor(new SpawnerCommand(this));
+        this.getCommand("spawner").setTabCompleter(new SpawnerTabCompleter(this));
 
     }
 

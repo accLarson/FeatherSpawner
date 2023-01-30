@@ -2,7 +2,6 @@ package net.zerek.featherspawners.listeners;
 
 import net.zerek.featherspawners.FeatherSpawners;
 import org.bukkit.GameMode;
-import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.block.CreatureSpawner;
 import org.bukkit.enchantments.Enchantment;
@@ -11,7 +10,6 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.inventory.ItemStack;
-
 
 public class BlockBreakListener implements Listener {
 
@@ -51,9 +49,10 @@ public class BlockBreakListener implements Listener {
 
         // Checks passed ----------------------------------------------------------------
 
-
         ItemStack itemStack = plugin.getSpawnerFileManager().getSpawner(spawnerEntity);
+
         event.setExpToDrop(0);
+
         spawner.getLocation().getWorld().dropItem(spawner.getLocation(), itemStack);
 
 

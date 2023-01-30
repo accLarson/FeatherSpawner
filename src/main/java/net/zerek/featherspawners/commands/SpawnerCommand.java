@@ -74,7 +74,9 @@ public class SpawnerCommand implements CommandExecutor {
                 // Designate / save the spawner into the spawners.yml
                 if (plugin.getSpawnerFileManager().saveSpawner(args[1].toUpperCase(),itemStack)) {
                     sender.sendMessage(mm.deserialize(messages.get("SpawnerDesignated"), Placeholder.unparsed("entitytype",args[1].toUpperCase())));
-                } else sender.sendMessage(mm.deserialize(messages.get("ErrorSpawnerNotDesignated")));
+                }
+
+                else sender.sendMessage(mm.deserialize(messages.get("ErrorSpawnerNotDesignated")));
 
                 break;
 
@@ -120,6 +122,7 @@ public class SpawnerCommand implements CommandExecutor {
                 // Checks passed ----------------------------------------------------------------
 
                 ((Player) sender).getEquipment().setItemInMainHand(plugin.getSpawnerFileManager().getSpawner(args[1].toUpperCase()));
+
                 sender.sendMessage(mm.deserialize(messages.get("SpawnerSet"), Placeholder.unparsed("entitytype",args[1].toUpperCase())));
 
                 break;
@@ -144,16 +147,29 @@ public class SpawnerCommand implements CommandExecutor {
                     break;
                 }
 
+                //check if sender has specified a valid entity type
+                if (!entityTypes.contains(args[2].toUpperCase())) {
+                    sender.sendMessage(mm.deserialize(messages.get("ErrorEntityTypeInvalid")));
+                    break;
+                }
+
                 // Check if the entity type specified is saved in spawners.yml
-                if (!plugin.getSpawnerFileManager().isSpawnerSaved(args[2])) {
+                if (!plugin.getSpawnerFileManager().isSpawnerSaved(args[2].toUpperCase())) {
                     sender.sendMessage(mm.deserialize(messages.get("ErrorEntityTypeNotOnFile")));
                     break;
                 }
 
                 // Checks passed ----------------------------------------------------------------
 
-                plugin.getServer().getPlayer(args[1]).getInventory().addItem(plugin.getSpawnerFileManager().getSpawner(args[2]));
-                plugin.getLogger().info(sender + " gave " + args[1] + " a " + args[2] + "spawner");
+                Player receiver = plugin.getServer().getPlayer(args[1]);
+
+                plugin.getServer().getPlayer(args[1]).getInventory().addItem(plugin.getSpawnerFileManager().getSpawner(args[2].toUpperCase()));
+
+                plugin.getLogger().info(sender.getName() + " gave " + args[1] + " a " + args[2].toUpperCase() + "spawner");
+
+                sender.sendMessage(mm.deserialize(messages.get("SpawnerGiven"), Placeholder.unparsed("player",receiver.getName())));
+
+                sender.sendMessage(mm.deserialize(messages.get("SpawnerReceived"), Placeholder.unparsed("entitytype",args[2].toUpperCase())));
 
                 break;
         }

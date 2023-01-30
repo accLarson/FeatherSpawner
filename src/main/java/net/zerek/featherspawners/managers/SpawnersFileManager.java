@@ -9,6 +9,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Set;
 
 public class SpawnersFileManager {
 
@@ -58,5 +59,10 @@ public class SpawnersFileManager {
     public ItemStack getSpawner(String entityType) {
 
         return spawnersMap.get(entityType);
+    }
+
+    public Set<String> getSpawnerList() {
+
+        return spawnersMap.keySet();
     }
 }
