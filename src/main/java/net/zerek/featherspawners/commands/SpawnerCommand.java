@@ -148,13 +148,17 @@ public class SpawnerCommand implements CommandExecutor {
 
                                 plugin.getLogger().info(sender + " gave " + args[1] + " a " + args[2] + "spawner");
                             }
-                            else; // Inform sender that the specified spawner type is not on file. (suggest designate)
+                            // Inform sender that the specified spawner type is not on file. (suggest designate)
+                            else sender.sendMessage(mm.deserialize(messages.get("ErrorEntityTypeNotOnFile")));
                         }
-                        else; // Inform sender that the specified player is not online.
+                        // Inform sender that the specified player is not online.
+                        else sender.sendMessage(mm.deserialize(messages.get("ErrorPlayerOffline")));
                     }
-                    else; // Inform player that they did not provide the correct amount of arguments.
+                    // Inform player that they did not provide the correct amount of arguments.
+                    else sender.sendMessage(mm.deserialize(messages.get("ErrorInvalidArgumentCount")));
                 }
-                else; // Inform sender they do not have permission.
+                // Inform sender they do not have permission.
+                else sender.sendMessage(mm.deserialize(messages.get("ErrorNoPermission")));
 
                 break;
         }

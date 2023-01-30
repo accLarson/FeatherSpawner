@@ -1,0 +1,77 @@
+SKELETON:
+  ==: org.bukkit.inventory.ItemStack
+  v: 3218
+  type: SPAWNER
+  meta:
+    ==: ItemMeta
+    meta-type: TILE_ENTITY
+    lore:
+      - '"(+NBT)"'
+    internal: H4sIAAAAAAAA/0WMyQrCMBRFr3FAA864cuN3uHRYVkp1L099ltCaaBqx/UM/S5Mi3uXhnCsBicEqN+dsq51y1YFSgXFE5Y7JnqoAFRfoSPT2d3rpDTmS6HCwuxDqgslNaT5burplkXHOzmhAoB8pXSecU4V3Lc/+8s2cjoUX2PYwDGpsnH+mvICfgAw4IZ0yWv6Tyv9ncyEwTfjxVJYv8Rewrc3RL1ybp3Y+bIegMQc+TEs7H/MAAAA=
+    blockMaterial: SPAWNER
+ZOMBIE:
+  ==: org.bukkit.inventory.ItemStack
+  v: 3218
+  type: SPAWNER
+  meta:
+    ==: ItemMeta
+    meta-type: TILE_ENTITY
+    lore:
+      - '"(+NBT)"'
+    internal: H4sIAAAAAAAA/0WMSwrCMBRFr/GDBvwhzl2HQz9DpahzeW2fEmwTTSO2bstNuCxNiniHh3OuBCQGi8wkl7V2ylUHOguMN1RumWxcBai4QEeit7/SQ6/IkUSHg92FUClGudKcWDq5+dPksWJAoL9Rug44owrvWp3+1dzEx8ILbHsYBjUyzv9SVsBPQAa8I31mtPwnlf/P5kxgsuPbXVlOoy9gW5ujX7g0d+182A5B4wV8ABRRpALxAAAA
+    blockMaterial: SPAWNER
+SPIDER:
+  ==: org.bukkit.inventory.ItemStack
+  v: 3218
+  type: SPAWNER
+  meta:
+    ==: ItemMeta
+    meta-type: TILE_ENTITY
+    lore:
+      - '"(+NBT)"'
+    internal: H4sIAAAAAAAA/0WOywrCMBREh6jFBnwh7v0Olz6WFVH3cm2vEqxJTVK0f+hnaVLEWQ7nDCMBieGyNPlto73yzZGuApOMXlsme25iqdghkUgPFT31mjxJJBzpPoQqML4rzbmli1+4ShVsAYFBpnQrcEkN3i06+6N3cz65ALBNMYrozviwS6VDiICM9Z70ldENm/T6b3bmAtM9P2pludh9C7YtOf6JK1NrH8Ree+KbD2hw/z/xAAAA
+    blockMaterial: SPAWNER
+SILVERFISH:
+  ==: org.bukkit.inventory.ItemStack
+  v: 3218
+  type: SPAWNER
+  meta:
+    ==: ItemMeta
+    meta-type: TILE_ENTITY
+    lore:
+      - '"(+NBT)"'
+    internal: H4sIAAAAAAAA/0WOyw6CMBREJ/URaeIr6t7vcOljiSHq3lzlgo1QtC0qf+hnaSHGWU7OmYwEJAbLrDhfN9opVx0oFRiH9NoymVNVl4otuhLB/kZPvSZHEl2u6R6EijHNleazocQtrMoebBJlL4BAP1S6kTijCu8Gn/3xvDgdrQfYBBjWaFQ4v02ZhY+ArOsd6ZTR9pv0+m+25gKTHd9LZTiOvgWbhhz9xFVRaufFTnPimw+Vx+9o9QAAAA==
+    blockMaterial: SPAWNER
+CAVE_SPIDER:
+  ==: org.bukkit.inventory.ItemStack
+  v: 3218
+  type: SPAWNER
+  meta:
+    ==: ItemMeta
+    meta-type: TILE_ENTITY
+    lore:
+      - '"(+NBT)"'
+    internal: H4sIAAAAAAAA/2WOSQ6CQBREK60S6cQpxr3ncOmwxBB0b77wJR2hwaZRuKHHkiHGhbWsvFcpCUhMt0kW3g/aKlufKRZYeFQdmcy17krFBRwJ95TTS+/JkoTDHT2GUBFWqdIcGrrZTUhPvhS5itgAAhNP6d7ihGq8//g0uzZ4A7BxMetQP7PtOCUF2gjIrg5Ix4xhu0nVb3OwFlgG/CiV4chvCjY9Of+Ku6zUthVH/YkmH4n+nxr2AAAA
+    blockMaterial: SPAWNER
+BLAZE:
+  ==: org.bukkit.inventory.ItemStack
+  v: 3218
+  type: SPAWNER
+  meta:
+    ==: ItemMeta
+    meta-type: TILE_ENTITY
+    lore:
+      - '"(+NBT)"'
+    internal: H4sIAAAAAAAA/0XOywrCMBAF0Et8YAO+EPd+h0sfy4qoe5m2YwmmqaYpWr/Qz9KkiLO8nHsZCUiMVrpMr1vjlGtOlAtMY3rumGzShFBxhb5EdLzRw2zIkUSfgx5AqAzjQhlOLV3cMtH0YkBgGCvTetbU4N3K+V8WZXKuPGAbYRzovnR+lnQFfwIyxAcyOaPrN+n53+wsBGYHvtfKcrb/BmxbOfkV12VtnC/22ie+9wGQLLuo8AAAAA==
+    blockMaterial: SPAWNER
+MAGMA_CUBE:
+  ==: org.bukkit.inventory.ItemStack
+  v: 3218
+  type: SPAWNER
+  meta:
+    ==: ItemMeta
+    meta-type: TILE_ENTITY
+    lore:
+      - '"(+NBT)"'
+    internal: H4sIAAAAAAAA/02OywrCMBBFL/GBBnyh7v0Olz6WSlH3Mm3HEmwTTVNs/9A/8Hc0LaKzPJxzGQlIDFepia5b7ZSrTpQITHZU7plsWNVQcY6uRP94o4fekCOJLtd2D0LFmGVKc2Tp4pYZJRmdoyJkQGCwU7qJOKUKz0af/+kmPOdeYNvHqFYD4/w2pTn8CcgaH0gnjLbfpPK32VoITA98L5TlOPgAto05/oZrU2jnw07zxAt4A8rS0O71AAAA
+    blockMaterial: SPAWNER
