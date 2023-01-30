@@ -1,7 +1,6 @@
 package net.zerek.featherspawners.listeners;
 
 import net.zerek.featherspawners.FeatherSpawners;
-import net.zerek.featherspawners.managers.ConfigManager;
 import org.bukkit.GameMode;
 import org.bukkit.Location;
 import org.bukkit.Material;
@@ -41,7 +40,7 @@ public class BlockBreakListener implements Listener {
                     // Check if the approved tool has silk touch enchantment
                     if (tool.getEnchantments().containsKey(Enchantment.SILK_TOUCH)) {
 
-                        CreatureSpawner spawner = (CreatureSpawner) event.getBlock().getBlockData();
+                        CreatureSpawner spawner = (CreatureSpawner) event.getBlock().getState();
                         String spawnerEntity = String.valueOf(spawner.getSpawnedType());
 
                         //check if spawner being broken is stored in spawnersMap for dropping.

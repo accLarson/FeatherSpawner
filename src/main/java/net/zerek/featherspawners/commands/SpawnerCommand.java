@@ -10,9 +10,15 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.jetbrains.annotations.NotNull;
 
+import java.util.Arrays;
+import java.util.List;
+import java.util.stream.Collectors;
+
 public class SpawnerCommand implements CommandExecutor {
 
     private final FeatherSpawners plugin;
+
+    private final List<String> entityTypes = Arrays.stream(EntityType.values()).map(Enum::toString).collect(Collectors.toList());
 
     public SpawnerCommand(FeatherSpawners plugin) {
         this.plugin = plugin;
@@ -25,21 +31,26 @@ public class SpawnerCommand implements CommandExecutor {
 
             case "designate":
 
+                // Check if sender is a player and if sender has permission
                 if (sender instanceof Player && sender.hasPermission("feather.spawners.designate")) {
 
                     ItemStack itemStack = ((Player) sender).getEquipment().getItemInMainHand();
 
+                    // Check if sender is holding a spawner
                     if (itemStack.getType() == Material.SPAWNER) {
 
-                        try {
-                            EntityType entityType = EntityType.valueOf(args[1]);
-                        } catch (IllegalArgumentException exp) {
-                            plugin.getLogger().info("IllegalArgumentException - " + args[1]);
-                            return false;
+                        //check if sender has specified a valid entity type
+                        if (entityTypes.contains(args[1].toUpperCase())) {
+
+                            if (plugin.getSpawnerFileManager().saveSpawner(args[1].toUpperCase(),itemStack)) {
+
+                                //inform sender that the specified spawner was designated
+                            }
+                            else {
+
+                                //inform sender that the specified spawner
+                            }
                         }
-
-                        plugin.getSpawnerFileManager().saveSpawner(args[1],itemStack);
-
                     }
                 }
 
@@ -47,15 +58,24 @@ public class SpawnerCommand implements CommandExecutor {
 
             case "set":
 
+                // Check if sender is a player and if sender has permission
                 if (sender instanceof Player && sender.hasPermission("feather.spawners.set")) {
 
                     ItemStack itemStack = ((Player) sender).getEquipment().getItemInMainHand();
 
+                    // Check if sender is holding a spawner
                     if (itemStack.getType() == Material.SPAWNER) {
 
+                        //check if sender has specified a valid entity type
+                        if (entityTypes.contains(args[1].toUpperCase())) {
 
+                            // Check if sender has specified an approved entity type for setting
+                            if (plugin.getConfigManager().getSettableEntityTypes().contains(EntityType.valueOf(args[1].toUpperCase()))) {
+
+                                ((Player) sender).getEquipment().setItemInMainHand(plugin.getSpawnerFileManager().getSpawner(args[1].toUpperCase()));
+                            }
+                        }
                     }
-
                 }
 
                 break;

@@ -1,12 +1,18 @@
 # FeatherSpawner Config
 
-silk-touch:
-  tools:
-    - WOODEN_PICKAXE
-    - STONE_PICKAXE
-    - IRON_PICKAXE
-    - GOLDEN_PICKAXE
-    - DIAMOND_PICKAXE
-    - NETHERITE_PICKAXE
+approved-silk-touch-tools:
+  - WOODEN_PICKAXE
+  - STONE_PICKAXE
+  - IRON_PICKAXE
+  - GOLDEN_PICKAXE
+  - DIAMOND_PICKAXE
+  - NETHERITE_PICKAXE
 
-spawners:
+settable-spawners:
+  - ZOMBIE
+  - SKELETON
+  - SPIDER
+  - CAVE_SPIDER
+  - SILVERFISH
+  - BLAZE
+  - MAGMA_CUBE
