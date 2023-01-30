@@ -21,17 +21,16 @@ public class SpawnersFileManager {
 
         this.plugin = plugin;
         this.init();
-        this.generateSpawnerMap();
     }
 
     private void init() {
         file = new File(plugin.getDataFolder() + File.separator + "spawners.yml");
         yml = YamlConfiguration.loadConfiguration(file);
-        this.generateSpawnerMap();
+        this.generateSpawnersMap();
 
     }
 
-    private void generateSpawnerMap() {
+    private void generateSpawnersMap() {
 
         yml.getKeys(false).forEach(entityType -> spawnersMap.put(entityType,yml.getItemStack(entityType)));
     }
@@ -47,7 +46,7 @@ public class SpawnersFileManager {
         }
 
         plugin.getLogger().info("Spawner saved: " + entityType);
-        this.generateSpawnerMap();
+        this.generateSpawnersMap();
         return true;
     }
 
