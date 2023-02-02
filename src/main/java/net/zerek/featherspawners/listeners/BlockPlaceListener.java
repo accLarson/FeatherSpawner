@@ -49,5 +49,13 @@ public class BlockPlaceListener implements Listener {
         String spawnerEntity = plugin.getSpawnerFileManager().getEntityTypeFromItemStack(event.getItemInHand().asOne());
 
         spawner.setSpawnedType(EntityType.valueOf(spawnerEntity));
+
+        spawner.update();
+
+        plugin.getLogger().info(player.getName() + " placed a " + spawnerEntity + " spawner at: "
+                + spawner.getLocation().getBlockX() + " "
+                + spawner.getLocation().getBlockY() + " "
+                + spawner.getLocation().getBlockZ() + ".");
+
     }
 }

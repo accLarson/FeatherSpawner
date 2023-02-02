@@ -56,7 +56,7 @@ public class BlockBreakListener implements Listener {
 
         spawner.getLocation().getWorld().dropItem(spawner.getLocation(), itemStack);
 
-        plugin.getLogger().info(player.getName() + "Mined a " + spawnerEntity + " spawner at: "
+        plugin.getLogger().info(player.getName() + " mined a " + spawnerEntity + " spawner at: "
                 + spawner.getLocation().getBlockX() + " "
                 + spawner.getLocation().getBlockY() + " "
                 + spawner.getLocation().getBlockZ() + ".");

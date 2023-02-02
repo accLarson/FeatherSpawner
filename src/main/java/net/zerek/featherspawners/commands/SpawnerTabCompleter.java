@@ -17,17 +17,22 @@ import java.util.stream.Collectors;
 public class SpawnerTabCompleter implements TabCompleter {
 
     private final FeatherSpawners plugin;
+
     private final List<String> allEntityTypes = Arrays.stream(EntityType.values()).map(Enum::toString).collect(Collectors.toList());
+
     private final List<String> approvedEntityTypes = new ArrayList<>();
 
 
     public SpawnerTabCompleter(FeatherSpawners plugin) {
+
         this.plugin = plugin;
+
         plugin.getConfigManager().getSettableEntityTypes().forEach(entityType -> approvedEntityTypes.add(entityType.name()));
     }
 
     @Override
     public @Nullable List<String> onTabComplete(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String[] args) {
+
         List<String> options = new ArrayList<>();
 
         if (sender.hasPermission("feather.spawners.designate")) options.add(0, "designate");
@@ -81,6 +86,7 @@ public class SpawnerTabCompleter implements TabCompleter {
                     return match;
                 }
         }
+
         return new ArrayList<>();
     }
 }
