@@ -24,6 +24,7 @@ public class BlockBreakListener implements Listener {
 
         // Check if the block broken is a spawner.
         if (event.getBlock().getType() != Material.SPAWNER) return;
+
         Player player = event.getPlayer();
 
         // Check if player is in survival mode.
@@ -55,12 +56,9 @@ public class BlockBreakListener implements Listener {
 
         spawner.getLocation().getWorld().dropItem(spawner.getLocation(), itemStack);
 
-        plugin.getLogger().info(event.getPlayer().getName() + "Mined a " + spawnerEntity + " spawner at: "
+        plugin.getLogger().info(player.getName() + "Mined a " + spawnerEntity + " spawner at: "
                 + spawner.getLocation().getBlockX() + " "
                 + spawner.getLocation().getBlockY() + " "
                 + spawner.getLocation().getBlockZ() + ".");
-
-
-
     }
 }

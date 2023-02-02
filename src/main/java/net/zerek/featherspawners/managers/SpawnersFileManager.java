@@ -3,6 +3,7 @@ package net.zerek.featherspawners.managers;
 import net.zerek.featherspawners.FeatherSpawners;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
+import org.bukkit.entity.Item;
 import org.bukkit.inventory.ItemStack;
 
 import java.io.File;
@@ -14,19 +15,27 @@ import java.util.Set;
 public class SpawnersFileManager {
 
     private final FeatherSpawners plugin;
+
     File file;
+
     private FileConfiguration yml;
+
+
     private final Map<String,ItemStack> spawnersMap = new HashMap<>();
 
     public SpawnersFileManager(FeatherSpawners plugin) {
 
         this.plugin = plugin;
+
         this.init();
     }
 
     private void init() {
+
         file = new File(plugin.getDataFolder() + File.separator + "spawners.yml");
+
         yml = YamlConfiguration.loadConfiguration(file);
+
         this.generateSpawnersMap();
 
     }
@@ -39,15 +48,22 @@ public class SpawnersFileManager {
     public boolean saveSpawner(String entityType, ItemStack spawner) {
 
         try {
+
             yml.set(entityType, spawner);
+
             yml.save(file);
+
         } catch (IOException e) {
+
             plugin.getLogger().info("Spawner failed to save: " + entityType);
+
             return false;
         }
 
         plugin.getLogger().info("Spawner saved: " + entityType);
+
         this.generateSpawnersMap();
+
         return true;
     }
 
@@ -64,5 +80,19 @@ public class SpawnersFileManager {
     public Set<String> getSpawnerOnFileList() {
 
         return spawnersMap.keySet();
+    }
+
+    public Map<String, ItemStack> getSpawnersMap() {
+
+        return spawnersMap;
+    }
+
+    public String getEntityTypeFromItemStack(ItemStack itemStack) {
+
+        for (Map.Entry<String, ItemStack> entry : spawnersMap.entrySet()) {
+
+            if (entry.getValue().equals(itemStack)) return entry.getKey();
+        }
+        return "null";
     }
 }
