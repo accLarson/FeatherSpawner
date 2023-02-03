@@ -30,11 +30,6 @@ public class BlockPlaceListener implements Listener {
 
         CreatureSpawner spawner = (CreatureSpawner) event.getBlock().getState();
 
-        if (spawner.getSpawnedType() == EntityType.SKELETON) {
-
-            plugin.getLogger().info("SKELETON SPAWNER PLACED");
-        }
-
         Player player = event.getPlayer();
 
         // Check if player is in survival mode.
