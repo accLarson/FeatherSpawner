@@ -8,6 +8,6 @@ ErrorEntityTypeNotOnFile: "<#656B96>The specified Entity Type is not on file. De
 ErrorSpawnerNotDesignated: "<#949BD1>Error<#656B96>: Spawner not designated / saved"
 ErrorPlayerOffline: "<#656B96>The specified player is offline."
 SpawnerDesignated: "<#656B96>Spawner designated as <entitytype>."
-SpawnerSet: "<#656B96>Spawner set to <entitytype>."
+SpawnerSet: "<#656B96><quantity> Spawner set to <entitytype>."
 SpawnerGiven: "<#656B96><entitytype> spawner given to <player>."
 SpawnerReceived: "<#656B96>You've received a <entitytype> spawner."

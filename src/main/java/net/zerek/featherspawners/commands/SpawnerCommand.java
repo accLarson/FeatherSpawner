@@ -149,9 +149,13 @@ public class SpawnerCommand implements CommandExecutor {
 
                 // Checks passed ----------------------------------------------------------------
 
-                ((Player) sender).getEquipment().setItemInMainHand(plugin.getSpawnerFileManager().getSpawner(args[1].toUpperCase()));
+                int quantity = ((Player) sender).getEquipment().getItemInMainHand().getAmount();
 
-                sender.sendMessage(mm.deserialize(messages.get("SpawnerSet"), Placeholder.unparsed("entitytype",args[1].toUpperCase())));
+                ((Player) sender).getEquipment().setItemInMainHand(plugin.getSpawnerFileManager().getSpawner(args[1].toUpperCase()).asQuantity(quantity));
+
+                sender.sendMessage(mm.deserialize(messages.get("SpawnerSet"),
+                        Placeholder.unparsed("quantity", String.valueOf(quantity)),
+                        Placeholder.unparsed("entitytype", args[1].toUpperCase())));
 
                 break;
 
