@@ -3,7 +3,6 @@ package net.zerek.featherspawners.managers;
 import net.zerek.featherspawners.FeatherSpawners;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
-import org.bukkit.entity.Item;
 import org.bukkit.inventory.ItemStack;
 
 import java.io.File;
@@ -12,7 +11,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 
-public class SpawnersFileManager {
+public class SpawnersManager {
 
     private final FeatherSpawners plugin;
 
@@ -23,7 +22,7 @@ public class SpawnersFileManager {
 
     private final Map<String,ItemStack> spawnersMap = new HashMap<>();
 
-    public SpawnersFileManager(FeatherSpawners plugin) {
+    public SpawnersManager(FeatherSpawners plugin) {
 
         this.plugin = plugin;
 
