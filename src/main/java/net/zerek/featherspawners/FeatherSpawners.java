@@ -4,14 +4,14 @@ import net.zerek.featherspawners.commands.SpawnerCommand;
 import net.zerek.featherspawners.commands.SpawnerTabCompleter;
 import net.zerek.featherspawners.listeners.BlockBreakListener;
 import net.zerek.featherspawners.listeners.BlockPlaceListener;
-import net.zerek.featherspawners.managers.ConfigManager;
+import net.zerek.featherspawners.managers.ConfigFileManager;
 import net.zerek.featherspawners.managers.MessagesFileManager;
 import net.zerek.featherspawners.managers.SpawnersFileManager;
 import org.bukkit.plugin.java.JavaPlugin;
 
 public final class FeatherSpawners extends JavaPlugin {
 
-    private ConfigManager configManager;
+    private ConfigFileManager configManager;
 
     private SpawnersFileManager spawnerFileManager;
 
@@ -27,7 +27,7 @@ public final class FeatherSpawners extends JavaPlugin {
         this.saveResource("messages.yml",false);
 
 
-        configManager = new ConfigManager(this);
+        configManager = new ConfigFileManager(this);
 
         spawnerFileManager = new SpawnersFileManager(this);
 
@@ -49,7 +49,7 @@ public final class FeatherSpawners extends JavaPlugin {
     public void onDisable() {
     }
 
-    public ConfigManager getConfigManager() {
+    public ConfigFileManager getConfigManager() {
         return configManager;
     }
 

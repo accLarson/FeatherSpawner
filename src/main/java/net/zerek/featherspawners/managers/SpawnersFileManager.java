@@ -3,7 +3,6 @@ package net.zerek.featherspawners.managers;
 import net.zerek.featherspawners.FeatherSpawners;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
-import org.bukkit.entity.Item;
 import org.bukkit.inventory.ItemStack;
 
 import java.io.File;
