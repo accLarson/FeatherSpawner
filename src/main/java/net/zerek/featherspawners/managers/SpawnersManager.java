@@ -11,7 +11,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 
-public class SpawnersFileManager {
+public class SpawnersManager {
 
     private final FeatherSpawners plugin;
 
@@ -22,7 +22,7 @@ public class SpawnersFileManager {
 
     private final Map<String,ItemStack> spawnersMap = new HashMap<>();
 
-    public SpawnersFileManager(FeatherSpawners plugin) {
+    public SpawnersManager(FeatherSpawners plugin) {
 
         this.plugin = plugin;
 

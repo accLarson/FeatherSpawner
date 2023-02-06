@@ -4,18 +4,18 @@ import net.zerek.featherspawners.commands.SpawnerCommand;
 import net.zerek.featherspawners.commands.SpawnerTabCompleter;
 import net.zerek.featherspawners.listeners.BlockBreakListener;
 import net.zerek.featherspawners.listeners.BlockPlaceListener;
-import net.zerek.featherspawners.managers.ConfigFileManager;
-import net.zerek.featherspawners.managers.MessagesFileManager;
-import net.zerek.featherspawners.managers.SpawnersFileManager;
+import net.zerek.featherspawners.managers.ConfigManager;
+import net.zerek.featherspawners.managers.MessagesManager;
+import net.zerek.featherspawners.managers.SpawnersManager;
 import org.bukkit.plugin.java.JavaPlugin;
 
 public final class FeatherSpawners extends JavaPlugin {
 
-    private ConfigFileManager configManager;
+    private ConfigManager configManager;
 
-    private SpawnersFileManager spawnerFileManager;
+    private SpawnersManager spawnerFileManager;
 
-    private MessagesFileManager messagesFileManager;
+    private MessagesManager messagesFileManager;
 
     @Override
     public void onEnable() {
@@ -27,11 +27,11 @@ public final class FeatherSpawners extends JavaPlugin {
         this.saveResource("messages.yml",false);
 
 
-        configManager = new ConfigFileManager(this);
+        configManager = new ConfigManager(this);
 
-        spawnerFileManager = new SpawnersFileManager(this);
+        spawnerFileManager = new SpawnersManager(this);
 
-        messagesFileManager = new MessagesFileManager(this);
+        messagesFileManager = new MessagesManager(this);
 
 
         this.getServer().getPluginManager().registerEvents(new BlockBreakListener(this), this);
@@ -49,15 +49,15 @@ public final class FeatherSpawners extends JavaPlugin {
     public void onDisable() {
     }
 
-    public ConfigFileManager getConfigManager() {
+    public ConfigManager getConfigManager() {
         return configManager;
     }
 
-    public SpawnersFileManager getSpawnerFileManager() {
+    public SpawnersManager getSpawnerFileManager() {
         return spawnerFileManager;
     }
 
-    public MessagesFileManager getMessagesFileManager() {
+    public MessagesManager getMessagesFileManager() {
         return messagesFileManager;
     }
 }

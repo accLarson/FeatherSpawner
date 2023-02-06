@@ -8,7 +8,7 @@ import java.io.File;
 import java.util.HashMap;
 import java.util.Map;
 
-public class MessagesFileManager {
+public class MessagesManager {
 
     private final FeatherSpawners plugin;
 
@@ -18,7 +18,7 @@ public class MessagesFileManager {
 
     private final Map<String, String> messagesMap = new HashMap<>();
 
-    public MessagesFileManager(FeatherSpawners plugin) {
+    public MessagesManager(FeatherSpawners plugin) {
 
         this.plugin = plugin;
 

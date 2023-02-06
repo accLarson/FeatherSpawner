@@ -7,7 +7,7 @@ import org.bukkit.entity.EntityType;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ConfigFileManager {
+public class ConfigManager {
 
     private final FeatherSpawners plugin;
 
@@ -16,7 +16,7 @@ public class ConfigFileManager {
     private final List<EntityType> settableEntityTypes = new ArrayList<>();
 
 
-    public ConfigFileManager(FeatherSpawners plugin) {
+    public ConfigManager(FeatherSpawners plugin) {
 
         this.plugin = plugin;
 
