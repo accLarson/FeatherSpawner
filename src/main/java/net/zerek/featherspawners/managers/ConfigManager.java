@@ -25,6 +25,8 @@ public class ConfigManager {
 
     private void init() {
 
+        plugin.saveDefaultConfig();
+
         plugin.getConfig().getStringList("approved-silk-touch-tools").forEach(t -> silkTouchTools.add(Material.valueOf(t)));
 
         plugin.getConfig().getStringList("settable-spawners").forEach(e -> settableEntityTypes.add(EntityType.valueOf(e)));

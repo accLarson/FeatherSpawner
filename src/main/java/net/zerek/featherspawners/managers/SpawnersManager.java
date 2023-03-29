@@ -31,6 +31,8 @@ public class SpawnersManager {
 
     private void init() {
 
+        if (!new File(plugin.getDataFolder(), "spawners.yml").exists()) plugin.saveResource("spawners.yml", false);
+
         file = new File(plugin.getDataFolder() + File.separator + "spawners.yml");
 
         yml = YamlConfiguration.loadConfiguration(file);

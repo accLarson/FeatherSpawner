@@ -9,6 +9,8 @@ import net.zerek.featherspawners.managers.MessagesManager;
 import net.zerek.featherspawners.managers.SpawnersManager;
 import org.bukkit.plugin.java.JavaPlugin;
 
+import java.io.File;
+
 public final class FeatherSpawners extends JavaPlugin {
 
     private ConfigManager configManager;
@@ -19,13 +21,6 @@ public final class FeatherSpawners extends JavaPlugin {
 
     @Override
     public void onEnable() {
-
-        this.saveDefaultConfig();
-
-        this.saveResource("spawners.yml",false);
-
-        this.saveResource("messages.yml",false);
-
 
         configManager = new ConfigManager(this);
 
