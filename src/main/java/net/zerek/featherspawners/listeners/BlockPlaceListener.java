@@ -9,9 +9,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockPlaceEvent;
-import org.bukkit.inventory.ItemStack;
 
-import java.util.Map;
 
 public class BlockPlaceListener implements Listener {
 
@@ -25,7 +23,7 @@ public class BlockPlaceListener implements Listener {
     @EventHandler
     public void onBlockPlace(BlockPlaceEvent event) {
 
-        // Check if the block broken is a spawner.
+        // Check if the block placed is a spawner.
         if (event.getBlock().getType() != Material.SPAWNER) return;
 
         CreatureSpawner spawner = (CreatureSpawner) event.getBlock().getState();
@@ -35,17 +33,26 @@ public class BlockPlaceListener implements Listener {
         // Check if player is in survival mode.
         if (player.getGameMode() != GameMode.SURVIVAL) return;
 
-        // Check if spawner placed has equivalent ItemStack stored in spawners.yml
-        if (!plugin.getSpawnerFileManager().getSpawnersMap().containsValue(event.getItemInHand().asOne())) return;
-
-
         // Checks passed ----------------------------------------------------------------
 
-        String spawnerEntity = plugin.getSpawnerFileManager().getEntityTypeFromItemStack(event.getItemInHand().asOne());
+        String spawnerEntity = "";
 
-        spawner.setSpawnedType(EntityType.valueOf(spawnerEntity));
+        if (plugin.getSpawnerFileManager().getSpawnersMap().containsValue(event.getItemInHand().asOne())) {
+
+            spawnerEntity = plugin.getSpawnerFileManager().getEntityTypeFromItemStack(event.getItemInHand().asOne());
+
+            spawner.setSpawnedType(EntityType.valueOf(spawnerEntity));
+        }
+
+        else {
+
+            spawnerEntity = "ZOMBIE";
+
+            spawner.setSpawnedType(EntityType.valueOf(spawnerEntity));
+        }
 
         spawner.update();
+
 
         plugin.getLogger().info(player.getName() + " placed a " + spawnerEntity + " spawner at: "
                 + spawner.getLocation().getBlockX() + " "

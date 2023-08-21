@@ -38,182 +38,183 @@ public class SpawnerCommand implements CommandExecutor {
     @Override
     public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String[] args) {
 
-        switch (args[0]) {
+        if (args.length > 0) {
 
-            case "designate":
+            switch (args[0]) {
 
-                // Check if sender is a player
-                if (!(sender instanceof Player)) {
+                case "designate":
 
-                    sender.sendMessage(mm.deserialize(messages.get("ErrorPlayerCommand")));
+                    // Check if sender is a player
+                    if (!(sender instanceof Player)) {
 
-                    break;
-                }
+                        sender.sendMessage(mm.deserialize(messages.get("ErrorPlayerCommand")));
 
-                // Check if sender has permission
-                if (!sender.hasPermission("feather.spawners.designate")) {
+                        break;
+                    }
 
-                    sender.sendMessage(mm.deserialize(messages.get("ErrorNoPermission")));
+                    // Check if sender has permission
+                    if (!sender.hasPermission("feather.spawners.designate")) {
 
-                    break;
-                }
+                        sender.sendMessage(mm.deserialize(messages.get("ErrorNoPermission")));
 
-                // Check if player provided correct amount of arguments
-                if (args.length != 2) {
+                        break;
+                    }
 
-                    sender.sendMessage(mm.deserialize(messages.get("ErrorInvalidArgumentCount")));
+                    // Check if player provided correct amount of arguments
+                    if (args.length != 2) {
 
-                    break;
-                }
+                        sender.sendMessage(mm.deserialize(messages.get("ErrorInvalidArgumentCount")));
 
-                ItemStack itemStack = ((Player) sender).getEquipment().getItemInMainHand();
+                        break;
+                    }
 
-                // Check if sender is holding a spawner
-                if (itemStack.getType() != Material.SPAWNER) {
+                    ItemStack itemStack = ((Player) sender).getEquipment().getItemInMainHand();
 
-                    sender.sendMessage(mm.deserialize(messages.get("ErrorNoSpawnerInHand")));
+                    // Check if sender is holding a spawner
+                    if (itemStack.getType() != Material.SPAWNER) {
 
-                    break;
-                }
+                        sender.sendMessage(mm.deserialize(messages.get("ErrorNoSpawnerInHand")));
 
-                //check if sender has specified a valid entity type
-                if (!entityTypes.contains(args[1].toUpperCase())) {
+                        break;
+                    }
 
-                    sender.sendMessage(mm.deserialize(messages.get("ErrorEntityTypeInvalid")));
+                    //check if sender has specified a valid entity type
+                    if (!entityTypes.contains(args[1].toUpperCase())) {
 
-                    break;
-                }
+                        sender.sendMessage(mm.deserialize(messages.get("ErrorEntityTypeInvalid")));
 
-                // Checks passed ----------------------------------------------------------------
+                        break;
+                    }
 
-                // Designate / save the spawner into the spawners.yml
-                if (plugin.getSpawnerFileManager().saveSpawner(args[1].toUpperCase(),itemStack.asOne())) {
+                    // Checks passed ----------------------------------------------------------------
 
-                    sender.sendMessage(mm.deserialize(messages.get("SpawnerDesignated"), Placeholder.unparsed("entitytype",args[1].toUpperCase())));
-                }
+                    // Designate / save the spawner into the spawners.yml
+                    if (plugin.getSpawnerFileManager().saveSpawner(args[1].toUpperCase(), itemStack.asOne())) {
 
-                else sender.sendMessage(mm.deserialize(messages.get("ErrorSpawnerNotDesignated")));
-
-                break;
-
-
-            case "set":
-
-                // Check if sender is a player
-                if (!(sender instanceof Player)) {
-
-                    sender.sendMessage(mm.deserialize(messages.get("ErrorPlayerCommand")));
+                        sender.sendMessage(mm.deserialize(messages.get("SpawnerDesignated"), Placeholder.unparsed("entitytype", args[1].toUpperCase())));
+                    } else sender.sendMessage(mm.deserialize(messages.get("ErrorSpawnerNotDesignated")));
 
                     break;
-                }
 
-                // Check if sender has permission
-                if (!sender.hasPermission("feather.spawners.set")) {
 
-                    sender.sendMessage(mm.deserialize(messages.get("ErrorNoPermission")));
+                case "set":
 
-                    break;
-                }
+                    // Check if sender is a player
+                    if (!(sender instanceof Player)) {
 
-                // Check if player provided correct amount of arguments
-                if (args.length != 2) {
+                        sender.sendMessage(mm.deserialize(messages.get("ErrorPlayerCommand")));
 
-                    sender.sendMessage(mm.deserialize(messages.get("ErrorInvalidArgumentCount")));
+                        break;
+                    }
 
-                    break;
-                }
+                    // Check if sender has permission
+                    if (!sender.hasPermission("feather.spawners.set")) {
 
-                // Check if sender is holding a spawner
-                if (((Player) sender).getEquipment().getItemInMainHand().getType() != Material.SPAWNER) {
+                        sender.sendMessage(mm.deserialize(messages.get("ErrorNoPermission")));
 
-                    sender.sendMessage(mm.deserialize(messages.get("ErrorNoSpawnerInHand")));
+                        break;
+                    }
 
-                    break;
-                }
+                    // Check if player provided correct amount of arguments
+                    if (args.length != 2) {
 
-                //check if sender has specified a valid entity type
-                if (!entityTypes.contains(args[1].toUpperCase())) {
+                        sender.sendMessage(mm.deserialize(messages.get("ErrorInvalidArgumentCount")));
 
-                    sender.sendMessage(mm.deserialize(messages.get("ErrorEntityTypeInvalid")));
+                        break;
+                    }
 
-                    break;
-                }
+                    // Check if sender is holding a spawner
+                    if (((Player) sender).getEquipment().getItemInMainHand().getType() != Material.SPAWNER) {
 
-                // Check if sender has specified a settable spawner type
-                if (!plugin.getConfigManager().getSettableEntityTypes().contains(EntityType.valueOf(args[1].toUpperCase()))) {
+                        sender.sendMessage(mm.deserialize(messages.get("ErrorNoSpawnerInHand")));
 
-                    sender.sendMessage(mm.deserialize(messages.get("ErrorEntityTypeNotAllowed")));
+                        break;
+                    }
 
-                    break;
-                }
+                    //check if sender has specified a valid entity type
+                    if (!entityTypes.contains(args[1].toUpperCase())) {
 
-                // Checks passed ----------------------------------------------------------------
+                        sender.sendMessage(mm.deserialize(messages.get("ErrorEntityTypeInvalid")));
 
-                int quantity = ((Player) sender).getEquipment().getItemInMainHand().getAmount();
+                        break;
+                    }
 
-                ((Player) sender).getEquipment().setItemInMainHand(plugin.getSpawnerFileManager().getSpawner(args[1].toUpperCase()).asQuantity(quantity));
+                    // Check if sender has specified a settable spawner type
+                    if (!plugin.getConfigManager().getSettableEntityTypes().contains(EntityType.valueOf(args[1].toUpperCase()))) {
 
-                sender.sendMessage(mm.deserialize(messages.get("SpawnerSet"),
-                        Placeholder.unparsed("quantity", String.valueOf(quantity)),
-                        Placeholder.unparsed("entitytype", args[1].toUpperCase())));
+                        sender.sendMessage(mm.deserialize(messages.get("ErrorEntityTypeNotAllowed")));
 
-                break;
+                        break;
+                    }
 
-            case "give":
+                    // Checks passed ----------------------------------------------------------------
 
-                // Check if sender has permission
-                if (!sender.hasPermission("feather.spawners.give")) {
+                    int quantity = ((Player) sender).getEquipment().getItemInMainHand().getAmount();
 
-                    sender.sendMessage(mm.deserialize(messages.get("ErrorNoPermission")));
+                    ((Player) sender).getEquipment().setItemInMainHand(plugin.getSpawnerFileManager().getSpawner(args[1].toUpperCase()).asQuantity(quantity));
 
-                    break;
-                }
-
-                // Check if player provided correct amount of arguments
-                if (args.length != 3) {
-
-                    sender.sendMessage(mm.deserialize(messages.get("ErrorInvalidArgumentCount")));
+                    sender.sendMessage(mm.deserialize(messages.get("SpawnerSet"),
+                            Placeholder.unparsed("quantity", String.valueOf(quantity)),
+                            Placeholder.unparsed("entitytype", args[1].toUpperCase())));
 
                     break;
-                }
 
-                // Check if player specified to give the spawner to, is online.
-                if (!plugin.getServer().getOfflinePlayer(args[1]).isOnline()) {
+                case "give":
 
-                    sender.sendMessage(mm.deserialize(messages.get("ErrorPlayerOffline")));
+                    // Check if sender has permission
+                    if (!sender.hasPermission("feather.spawners.give")) {
+
+                        sender.sendMessage(mm.deserialize(messages.get("ErrorNoPermission")));
+
+                        break;
+                    }
+
+                    // Check if player provided correct amount of arguments
+                    if (args.length != 3) {
+
+                        sender.sendMessage(mm.deserialize(messages.get("ErrorInvalidArgumentCount")));
+
+                        break;
+                    }
+
+                    // Check if player specified to give the spawner to, is online.
+                    if (!plugin.getServer().getOfflinePlayer(args[1]).isOnline()) {
+
+                        sender.sendMessage(mm.deserialize(messages.get("ErrorPlayerOffline")));
+
+                        break;
+                    }
+
+                    //check if sender has specified a valid entity type
+                    if (!entityTypes.contains(args[2].toUpperCase())) {
+
+                        sender.sendMessage(mm.deserialize(messages.get("ErrorEntityTypeInvalid")));
+
+                        break;
+                    }
+
+                    // Check if the entity type specified is saved in spawners.yml
+                    if (!plugin.getSpawnerFileManager().isSpawnerSaved(args[2].toUpperCase())) {
+
+                        sender.sendMessage(mm.deserialize(messages.get("ErrorEntityTypeNotOnFile")));
+
+                        break;
+                    }
+
+                    // Checks passed ----------------------------------------------------------------
+
+                    Player receiver = plugin.getServer().getPlayer(args[1]);
+
+                    plugin.getServer().getPlayer(args[1]).getInventory().addItem(plugin.getSpawnerFileManager().getSpawner(args[2].toUpperCase()));
+
+                    plugin.getLogger().info(sender.getName() + " gave " + args[1] + " a " + args[2].toUpperCase() + "spawner");
+
+                    sender.sendMessage(mm.deserialize(messages.get("SpawnerGiven"), Placeholder.unparsed("player", receiver.getName())));
+
+                    sender.sendMessage(mm.deserialize(messages.get("SpawnerReceived"), Placeholder.unparsed("entitytype", args[2].toUpperCase())));
 
                     break;
-                }
-
-                //check if sender has specified a valid entity type
-                if (!entityTypes.contains(args[2].toUpperCase())) {
-
-                    sender.sendMessage(mm.deserialize(messages.get("ErrorEntityTypeInvalid")));
-
-                    break;
-                }
-
-                // Check if the entity type specified is saved in spawners.yml
-                if (!plugin.getSpawnerFileManager().isSpawnerSaved(args[2].toUpperCase())) {
-
-                    sender.sendMessage(mm.deserialize(messages.get("ErrorEntityTypeNotOnFile")));
-
-                    break;
-                }
-
-                // Checks passed ----------------------------------------------------------------
-
-                Player receiver = plugin.getServer().getPlayer(args[1]);
-
-                plugin.getServer().getPlayer(args[1]).getInventory().addItem(plugin.getSpawnerFileManager().getSpawner(args[2].toUpperCase()));
-
-                plugin.getLogger().info(sender.getName() + " gave " + args[1] + " a " + args[2].toUpperCase() + "spawner");
-
-                sender.sendMessage(mm.deserialize(messages.get("SpawnerGiven"), Placeholder.unparsed("player",receiver.getName())));
-
-                sender.sendMessage(mm.deserialize(messages.get("SpawnerReceived"), Placeholder.unparsed("entitytype",args[2].toUpperCase())));
-
-                break;
+            }
         }
 
         return false;

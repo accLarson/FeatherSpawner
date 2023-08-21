@@ -41,22 +41,23 @@ public class BlockBreakListener implements Listener {
         // Check if the approved tool has silk touch enchantment
         if (!tool.getEnchantments().containsKey(Enchantment.SILK_TOUCH)) return;
 
+        // Checks passed ----------------------------------------------------------------
+
         CreatureSpawner spawner = (CreatureSpawner) event.getBlock().getState();
 
         String spawnerEntity = String.valueOf(spawner.getSpawnedType());
+        String dropEntity = "";
 
-        //check if spawner being broken is stored in spawnersMap for dropping.
-        if (!plugin.getSpawnerFileManager().isSpawnerSaved(spawnerEntity)) return;
+        if (plugin.getSpawnerFileManager().isSpawnerSaved(spawnerEntity)) dropEntity = spawnerEntity;
+        else dropEntity = "ZOMBIE";
 
-        // Checks passed ----------------------------------------------------------------
-
-        ItemStack itemStack = plugin.getSpawnerFileManager().getSpawner(spawnerEntity);
+        ItemStack itemStack = plugin.getSpawnerFileManager().getSpawner(dropEntity);
 
         event.setExpToDrop(0);
 
         spawner.getLocation().getWorld().dropItem(spawner.getLocation(), itemStack);
 
-        plugin.getLogger().info(player.getName() + " mined a " + spawnerEntity + " spawner at: "
+        plugin.getLogger().info(player.getName() + " mined a " + spawnerEntity + " spawner - Dropping a " + dropEntity + " spawner at: "
                 + spawner.getLocation().getBlockX() + " "
                 + spawner.getLocation().getBlockY() + " "
                 + spawner.getLocation().getBlockZ() + ".");
